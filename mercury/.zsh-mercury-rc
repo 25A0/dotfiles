@@ -1,0 +1,16 @@
+# OS X stuff
+preview() { open -a /Applications/Preview.app $@}
+
+finder() { open -R . }
+
+# start sublime text from command line
+subl() {
+	/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl $@
+}
+
+export JUNIT_HOME="/Library/Java"
+
+notifier() {
+	terminal-notifier -title Timer -message $@
+}
+
