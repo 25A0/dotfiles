@@ -47,7 +47,7 @@ ZSH_THEME="mrtazz"
 # Custom plugins may be added to ~/.oh-my-zsh/custom/plugins/
 # Example format: plugins=(rails git textmate ruby lighthouse)
 # Add wisely, as too many plugins slow down shell startup.
-plugins=(git brew catimg z zsh-syntax-highlighting bgnotify thefuck)
+plugins=(git brew catimg z zsh-syntax-highlighting bgnotify)
 
 source $ZSH/oh-my-zsh.sh
 
@@ -100,10 +100,6 @@ ZSH_HIGHTLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 #     zle autosuggest-start
 # }
 # zle -N zle-line-init
-
-
-# The Fuck
-eval $(thefuck --alias)
 
 # Functions
 
