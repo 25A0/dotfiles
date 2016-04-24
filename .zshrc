@@ -116,6 +116,13 @@ timer() {
 	echo 'Timer started for '$1' minute(s).'
 }
 
+# creates a new scratch directory and cds to it
+scratch() {
+	NAME=$(echo $(date) | md5 )
+	mkdir -p ~/.scratch/${NAME}
+	cd ~/.scratch/${NAME}	
+}
+
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
