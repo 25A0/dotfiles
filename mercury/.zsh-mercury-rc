@@ -1,4 +1,9 @@
 # OS X stuff
+
+export PATH="/usr/local/crossgcc/bin:/usr/local/sbin:/Applications/Inkscape.app/Contents/Resources/bin:/usr/local/bin:/usr/texbin:/usr/local/Cellar:/usr/local/texlive/2014/bin/x86_64-darwin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/moritz/Development/android-sdk-macosx/tools:/Users/moritz/Development/android-sdk-macosx/platform-tools:/Users/moritz/Projects/Sapling:$PATH"
+export FPATH="/Users/moritz/.zsh-functions/:$FPATH"
+autoload ytget
+
 preview() { open -a /Applications/Preview.app $@}
 
 finder() { open -R . }
@@ -9,8 +14,16 @@ subl() {
 }
 
 export JUNIT_HOME="/Library/Java"
+export ANDROID_HOME="/Users/moritz/Development/android-sdk-macosx"
 
 notifier() {
 	terminal-notifier -title Timer -message $@
+}
+
+arcos() {
+	cd ~/Dropbox/Projects/arcos
+	subl arcos.sublime-project
+	DATE=`date "+%m"`
+	subl ~/Dropbox/arcos/Organisation/Arbeitszeiten/2016-${DATE}-moritz.txt
 }
 

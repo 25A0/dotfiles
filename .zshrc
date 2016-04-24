@@ -53,9 +53,6 @@ source $ZSH/oh-my-zsh.sh
 
 # User configuration
 
-export PATH="/usr/local/crossgcc/bin:/usr/local/sbin:/Applications/Inkscape.app/Contents/Resources/bin:/Applications/sage:/usr/local/bin:/usr/texbin:/usr/local/Cellar:/usr/local/texlive/2014/bin/x86_64-darwin:/usr/bin:/bin:/usr/sbin:/sbin:$PATH"
-export FPATH="/Users/moritz/.zsh-functions/:$FPATH"
-autoload ytget
 # export MANPATH="/usr/local/man:$MANPATH"
 
 # You may need to manually set your language environment
