@@ -102,10 +102,11 @@ ZSH_HIGHTLIGHT_HIGHLIGHTERS=(main brackets pattern cursor)
 
 # make available for download on uberspace
 publish() {
-	scp $@ pluto:~/chicagoboss/homepage/static/files && \
+	echo File URLs will be:
 	for i in $@; do
-		echo http://www.25a0.com/downloads/files/${i}
+		echo https://www.post-apocalyptic-crypto.org/downloads/files/${i}
 	done
+	scp $@ pluto:~/chicagoboss/homepage/static/files && \
 }
 
 # simple timer that shows a desktop notification
