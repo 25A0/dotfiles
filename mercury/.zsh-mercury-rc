@@ -4,6 +4,8 @@ export PATH="/usr/local/crossgcc/bin:/usr/local/sbin:/Applications/Inkscape.app/
 export FPATH="/Users/moritz/.zsh-functions/:$FPATH"
 autoload ytget
 
+alias sed=gsed
+
 preview() { open -a /Applications/Preview.app $@}
 
 finder() { open -R . }
