@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/bash
 
 # Creates a link from $1 to $2, and 
 f_link()
