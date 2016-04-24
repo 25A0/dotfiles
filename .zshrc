@@ -106,7 +106,7 @@ publish() {
 	for i in $@; do
 		echo https://www.post-apocalyptic-crypto.org/downloads/files/${i}
 	done
-	scp $@ pluto:~/chicagoboss/homepage/static/files && \
+	scp $@ pluto:~/chicagoboss/homepage/static/files
 }
 
 # simple timer that shows a desktop notification
