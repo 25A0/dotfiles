@@ -128,6 +128,12 @@ export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
+# Override default prompt
+PROMPT='%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
+RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt)%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%} '
+
+ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}x%{$fg[green]%}>%{$reset_color%}"
+
 if [[ -e ~/.zsh-${HOST}-rc ]]; then
 	# host-specific configuration
 	source ~/.zsh-${HOST}-rc
