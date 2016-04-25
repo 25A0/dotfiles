@@ -130,7 +130,7 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # Aliasseses
 
-emacs='TERM=screen-16color emacs -nw'
+alias emacs='TERM=screen-16color emacs -nw'
 
 # Override default prompt
 PROMPT='%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
