@@ -128,6 +128,10 @@ export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
+# Aliasseses
+
+emacs='TERM=screen-16color emacs -nw'
+
 # Override default prompt
 PROMPT='%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
 RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt)%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%} '
