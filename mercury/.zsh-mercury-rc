@@ -34,3 +34,6 @@ arcos() {
 	subl ~/Dropbox/arcos/Organisation/Arbeitszeiten/2016-${DATE}-moritz.txt
 }
 
+browse() {
+	 automator -i $1 ~/Library/Workflows/WebPreview.workflow
+}
