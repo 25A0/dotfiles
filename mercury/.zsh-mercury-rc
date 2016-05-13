@@ -35,5 +35,12 @@ arcos() {
 }
 
 browse() {
-	 automator -i $1 ~/Library/Workflows/WebPreview.workflow
+	 automator -i "$@" ~/Library/Workflows/WebPreview.workflow
 }
+
+duck() {
+	 #browse "https://api.duckduckgo.com/?q=$@"
+	 query=`echo $@ | sed 's/ /%20/g'`
+	 automator -i "https://api.duckduckgo.com/?q=${query}" ~/Library/Workflows/WebPreview.workflow
+}
+
