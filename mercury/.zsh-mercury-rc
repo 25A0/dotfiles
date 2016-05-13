@@ -18,6 +18,11 @@ subl() {
 export JUNIT_HOME="/Library/Java"
 export ANDROID_HOME="/Users/moritz/Development/android-sdk-macosx"
 
+# From https://github.com/mathiasbynens/dotfiles/
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+
 notifier() {
 	terminal-notifier -title Timer -message $@
 }
