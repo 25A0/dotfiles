@@ -133,9 +133,11 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 alias emacs='TERM=screen-16color emacs -nw'
 alias emacsclient='TERM=screen-16color emacsclient -nw'
 
+NONLOGIN=`if [[ ! -o login ]]; then echo "> "; fi`
+ROOT=$(if [[ `whoami` == 'root' ]]; then echo "root@"; fi)
 # Override default prompt
-PROMPT='%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
-RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt)%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%} '
+PROMPT='${NONLOGIN}%? %{$fg_bold[red]%}${ROOT}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
+RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%} '
 
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}x%{$fg[green]%}>%{$reset_color%}"
 
