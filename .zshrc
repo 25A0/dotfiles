@@ -145,3 +145,10 @@ if [[ -e ~/.zsh-${HOST}-rc ]]; then
 	# host-specific configuration
 	source ~/.zsh-${HOST}-rc
 fi
+
+# If this is a login shell, attach to screen session.
+if [[ -o login ]]; then
+    # This will reattach to a session if one is present, or create a new one otherwise
+    echo "Attaching to screen session..."
+    screen -D -R -S login
+fi
