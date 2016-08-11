@@ -130,6 +130,8 @@ export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
 # Aliasseses
 
+# Alias for attaching to the login screen session
+alias s='screen -D -R -S login'
 alias emacs='TERM=screen-16color emacs -nw'
 alias emacsclient='TERM=screen-16color emacsclient -nw'
 
@@ -146,9 +148,9 @@ if [[ -e ~/.zsh-${HOST}-rc ]]; then
 	source ~/.zsh-${HOST}-rc
 fi
 
-# If this is a login shell, attach to screen session.
+# If this is a login shell, list all current screen sessions.
 if [[ -o login ]]; then
-    # This will reattach to a session if one is present, or create a new one otherwise
-    echo "Attaching to screen session..."
-    screen -D -R -S login
+    echo "Screen sessions:"
+    screen -ls
+    echo -e "Type `tput bold`s`tput sgr0` to attach to the login session"
 fi
