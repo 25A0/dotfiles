@@ -9,6 +9,9 @@ f_link()
 # Create link to .zshrc
 f_link `pwd`/.zshrc ${HOME}/.zshrc
 
+# Create link to .screenrc
+f_link `pwd`/.screenrc ${HOME}/.screenrc
+
 HOST=`hostname`
 if [[ -d ./${HOST} ]]; then
     # Link to individual files in ${HOST}
