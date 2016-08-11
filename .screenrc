@@ -1,0 +1,21 @@
+
+# This prevents most hiccups with emacs key bindings
+defflow off
+escape ^Zz
+
+
+# Define backtick command for current session's name
+# Jinxed from http://superuser.com/questions/212392/how-to-include-screens-session-name-in-hardstatus
+# and modified
+backtick 10 60 60 sh -c 'screen -ls | grep --color=no "$PPID*" | sed -E "s/\s+${PPID}\.(\S+).*/\1/g"'
+
+# Define the hardstatus -- that line at the very bottom of the screen
+hardstatus on
+hardstatus alwayslastline 
+# Jinxed from https://gist.github.com/ChrisWills/1337178
+hardstatus string '%{= Kd} %{= Kd}%-w%{= Kr}[%{= KW}%n %t%{= Kr}]%{= Kd}%+w %-= %{KG} %H%{KW} | %{KY}%10`%{KW} | %D %M %d %Y%{= Kc} %C%A%{-}'
+
+# Hide hardstatus: ctrl-a f 
+bind f eval "hardstatus ignore"
+# Show hardstatus: ctrl-a F
+bind F eval "hardstatus alwayslastline"
