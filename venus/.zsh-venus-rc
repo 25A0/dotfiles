@@ -1,1 +1,1 @@
-  export PATH="/home/moritz/Uni/2015-2016/research-internship/valgrind/inst/bin:/home/moritz/Uni/2015-2016/chacha20/clang-dev/build/bin:/usr/local/bin:/usr/bin:/bin:/usr/local/games:/usr/games"
+  export PATH="/home/moritz/bin:/home/moritz/Uni/2015-2016/research-internship/valgrind/inst/bin:/home/moritz/Uni/2015-2016/chacha20/clang-dev/build/bin:/usr/local/bin:/usr/local/sbin:/usr/sbin:/sbin:/usr/bin:/bin:/usr/local/games:/usr/games"
