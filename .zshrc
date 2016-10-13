@@ -128,6 +128,14 @@ export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
 export HISTIGNORE="ls:cd:cd -:pwd:exit:date:* --help";
 
+# Quick way to do stuff in bc
+# Stolen from https://twitter.com/dsandler/status/786406879198978048
+# Usage: = 4+12
+function = { echo "$*" | tr ',' ';' | bc -l; }
+# Zsh globbing gets upset about * for these cases, therefore:
+setopt no_nomatch
+# which suppresses an error when there was no match for *.
+
 # Aliasseses
 
 # Alias for attaching to the login screen session
