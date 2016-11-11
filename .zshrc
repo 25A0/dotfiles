@@ -143,6 +143,8 @@ alias s='screen -D -R -S login'
 alias emacs='TERM=screen-16color emacs -nw'
 alias emacsclient='TERM=screen-16color emacsclient -nw'
 
+alias git add --YOLO=git add -fA
+
 NONLOGIN=`if [[ ! -o login ]]; then echo "> "; fi`
 ROOT=$(if [[ `whoami` == 'root' ]]; then echo "%{$fg_bold[red]%} DANGERZONE %{$reset_color%}"; fi)
 # Override default prompt
