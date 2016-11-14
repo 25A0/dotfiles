@@ -123,6 +123,16 @@ scratch() {
 	cd ~/.scratch/${NAME}	
 }
 
+# return the URL that links to the given commit.
+# this should work whenever the remote is a ssh remote
+# i.e. something like git@github.com:user/repo
+# and produces something like
+# 	https://github.com/user/repo/commit/$1
+# this currently works for github and gitlab, since they both use this url format
+commiturl() {
+	echo `git remote -v | head -n 1 | sed -E 's|^.*\s\S+@(.*):(.*).git\s.*|https://\1/\2/commit/|'`$1
+}
+
 export HISTSIZE=32768;
 export HISTFILESIZE=$HISTSIZE;
 export HISTCONTROL=ignoredups;
