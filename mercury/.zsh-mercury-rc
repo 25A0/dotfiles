@@ -30,8 +30,8 @@ notifier() {
 arcos() {
 	cd ~/Dropbox/Projects/arcos
 	subl arcos.sublime-project
-	DATE=`date "+%m"`
-	subl ~/Dropbox/arcos/Organisation/Arbeitszeiten/2016-${DATE}-moritz.txt
+	DATE=`date "+%Y-%m"`
+	subl ~/Dropbox/arcos/Organisation/Arbeitszeiten/${DATE}-moritz.txt
 }
 
 browse() {
