@@ -79,6 +79,7 @@ source $ZSH/oh-my-zsh.sh
 # Example aliases
 # alias zshconfig="mate ~/.zshrc"
 # alias ohmyzsh="mate ~/.oh-my-zsh"
+which exa && alias l="exa -l"
 
 # Recommendations that I found on
 # http://webdevstudios.com/2015/02/10/a-beginners-guide-to-the-best-command-line-tools/
