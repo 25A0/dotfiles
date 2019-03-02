@@ -1,8 +1,12 @@
 
+# Disable the copyright message at startup
+startup_message off
+
 # This prevents most hiccups with emacs key bindings
 defflow off
 escape ^Zz
 
+defutf8 on
 
 # Define backtick command for current session's name
 # Jinxed from http://superuser.com/questions/212392/how-to-include-screens-session-name-in-hardstatus
