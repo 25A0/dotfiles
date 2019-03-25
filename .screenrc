@@ -17,7 +17,7 @@ backtick 10 60 60 sh -c 'screen -ls | grep --color=no "$PPID*" | sed -E "s/\s+${
 # Define the hardstatus -- that line at the very bottom of the screen
 hardstatus on
 hardstatus alwayslastline
-hardstatus string '%{= dd} %{.c}%S%{-}@%{.r}%H%{-} %-w%{+s ..} %n %t %{-s ..} %+w %-= %c:%s '
+hardstatus string '%{= dd}%-w%{+b}%{.C}%n %t%{-}%{-b}%+w %-= %{+b}%{.c}%S%{-} @ %{.r}%H%{-} %c:%s %{-b}'
 
 # Hide hardstatus: ctrl-a f 
 bind f eval "hardstatus ignore"
