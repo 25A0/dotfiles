@@ -13,7 +13,7 @@ utf8 on on
 # Jinxed from http://superuser.com/questions/212392/how-to-include-screens-session-name-in-hardstatus
 # and modified
 backtick 10 60 60 sh -c 'screen -ls | grep --color=no "$PPID*" | sed -E "s/\s+${PPID}\.(\S+).*/\1/g"'
-backtick  1 1 1 sh -c 'head -n 1 ~/.batstat.txt || echo ""'
+backtick  1 60 60 sh -c 'head -n 1 ~/.batstat.txt || echo ""'
 
 # Define the hardstatus -- that line at the very bottom of the screen
 hardstatus on
