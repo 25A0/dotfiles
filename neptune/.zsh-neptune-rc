@@ -1,1 +1,6 @@
+
 export EDITOR=emacsclient
+
+# Set a custom colour for the tmux host name
+tmux set-environment -g TMUX_HOSTNAME_FG "black"
+tmux set-environment -g TMUX_HOSTNAME_BG "colour3"

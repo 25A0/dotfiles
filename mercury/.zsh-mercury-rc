@@ -1,27 +1,53 @@
 # OS X stuff
 
-export PATH="/usr/local/crossgcc/bin:/usr/local/sbin:/Applications/Inkscape.app/Contents/Resources/bin:/usr/local/bin:/usr/texbin:/usr/local/Cellar:/usr/local/texlive/2014/bin/x86_64-darwin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/moritz/Development/android-sdk-macosx/tools:/Users/moritz/Development/android-sdk-macosx/platform-tools:/Users/moritz/Projects/Sapling:$PATH"
+export PATH="/usr/local/crossgcc/bin:/usr/local/sbin:/Applications/Inkscape.app/Contents/Resources/bin:/usr/local/bin:/usr/texbin:/usr/local/Cellar:/usr/local/texlive/2016/bin/x86_64-darwin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/moritz/Projects/Sapling:$PATH"
 export FPATH="/Users/moritz/.zsh-functions/:$FPATH"
 autoload ytget
 
 alias sed=gsed
+alias epipe="/Users/moritz/lib/epipe/epipe"
 
 preview() { open -a /Applications/Preview.app $@}
 
 finder() { open -R . }
 
 # start sublime text from command line
-subl() {
-	/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl $@
-}
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+export EDITOR=/usr/bin/emacsclient
 
 export JUNIT_HOME="/Library/Java"
-export ANDROID_HOME="/Users/moritz/Development/android-sdk-macosx"
+export JAVA_FX_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home/jre/lib"
+export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
+export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
+export ANDROID_SDK_HOME="/usr/local/share/android-sdk"
 
 # From https://github.com/mathiasbynens/dotfiles/
 # IP addresses
 alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
 alias localip="ipconfig getifaddr en1"
+
+# sshuttle alias to open vpn to Pluto
+alias shuttle="sshuttle --dns -v -r pluto@peacock.uberspace.de 0/0"
+
+# download youtube video and convert to MP3
+alias youtube-mp3="youtube-dl -x -audio-format mp3 --prefer-ffmpeg "
+
+# sync android folder
+alias haumea-sync="adb push ~/remote/haumea storage/1234-5678"
+
+# https://twitter.com/chris__martin/status/420992421673988096
+alias such=git
+alias wow=git
+alias very=git
+
+run-love() {
+	NAME=$(echo $(date) | md5 )
+	mkdir -p ~/.scratch/${NAME}
+	cd  ~/.scratch/${NAME}
+	cat - > main.lua
+	love  ~/.scratch/${NAME}
+}
 
 notifier() {
 	terminal-notifier -title Timer -message $@
@@ -127,3 +153,20 @@ preview() {
 		fi
 	done
 }
+
+webloc() {
+	cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+	<key>URL</key>
+	<string>$@</string>
+</dict>
+</plist>
+EOF
+}
+
+# Set a custom colour for the tmux host name
+tmux set-environment -g TMUX_HOSTNAME_FG "white"
+tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
