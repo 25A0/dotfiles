@@ -149,6 +149,11 @@ function = { echo "$*" | tr ',' ';' | bc -l; }
 setopt no_nomatch
 # which suppresses an error when there was no match for *.
 
+# Set a default colour for the tmux host name.
+# This colour might be replaced by a host-specific colour in a host-specific rc file
+tmux set-environment -g TMUX_HOSTNAME_FG "white"
+tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
+
 # Aliasseses
 
 # Alias for attaching to the login tmux session
