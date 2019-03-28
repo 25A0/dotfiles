@@ -130,4 +130,4 @@ preview() {
 
 # Set a custom colour for the tmux host name
 tmux set-environment -g TMUX_HOSTNAME_FG "white"
-tmux set-environment -g TMUX_HOSTNAME_BG "colour130"
+tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
