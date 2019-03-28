@@ -114,9 +114,12 @@ publish() {
 
 # simple timer that shows a desktop notification
 timer() {
-	TIME=`expr 60 \* $1`
-	(sleep ${TIME} && notifier '*beep beep* *beep beep*') & \
-	echo 'Timer started for '$1' minute(s).'
+    SECONDS=`expr $1 % 100`
+    MINUTES=`expr $1 / 100`
+    TOTAL_TIME=`expr $MINUTES \* 60 + $SECONDS`
+    echo ${MINUTES}:${SECONDS} (${TOTAL_TIME})
+    (sleep ${TOTAL_TIME} && echo "\e]9;Timer $2 went off\a") &
+    echo 'Timer started for '${TOTAL_TIME}' second(s).'
 }
 
 # creates a new scratch directory and cds to it
@@ -155,12 +158,14 @@ setopt no_nomatch
 alias s='tmux new-session -A -s login'
 alias emacs='TERM=screen-16color emacs -nw'
 alias emacsclient='TERM=screen-16color emacsclient -nw'
+alias gpgenc='gpg -a -s -e -r moritz@post-apocalyptic-crypto.org'
+alias gpgdec='gpg -d'
 
 NONLOGIN=`if [[ ! -o login ]]; then echo "> "; fi`
 ROOT=$(if [[ `whoami` == 'root' ]]; then echo "%{$fg_bold[red]%} DANGERZONE %{$reset_color%}"; fi)
 # Override default prompt
 PROMPT='${ROOT}${NONLOGIN}%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
-RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%}${ROOT}'
+RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} %{$fg_bold[green]%}$(command cat ~/.daily.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%}${ROOT}'
 
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}x%{$fg[green]%}>%{$reset_color%}"
 
