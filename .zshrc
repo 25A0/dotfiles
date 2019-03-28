@@ -151,8 +151,8 @@ setopt no_nomatch
 
 # Aliasseses
 
-# Alias for attaching to the login screen session
-alias s='screen -D -R -S login'
+# Alias for attaching to the login tmux session
+alias s='tmux new-session -A -s login'
 alias emacs='TERM=screen-16color emacs -nw'
 alias emacsclient='TERM=screen-16color emacsclient -nw'
 
@@ -169,9 +169,16 @@ if [[ -e ~/.zsh-${HOST}-rc ]]; then
 	source ~/.zsh-${HOST}-rc
 fi
 
-# If this is a login shell, list all current screen sessions.
+# If this is a login shell, list all current tmux sessions.
 if [[ -o login ]]; then
-    echo "Screen sessions:"
-    screen -ls
+    echo "tmux sessions:"
+    tmux list-sessions
     echo -e "Type `tput bold`s`tput sgr0` to attach to the login session"
 fi
+
+function qr {
+    FILENAME=`mktemp -t qrimg`
+    FILENAME=${FILENAME}.png
+    wget -O ${FILENAME} https://api.qrserver.com/v1/create-qr-code/\?size\=150x150\&data\=$1
+    inline ${FILENAME}
+}

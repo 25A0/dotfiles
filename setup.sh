@@ -12,6 +12,9 @@ f_link `pwd`/.zshrc ${HOME}/.zshrc
 # Create link to .screenrc
 f_link `pwd`/.screenrc ${HOME}/.screenrc
 
+# Create link to .tmux.conf
+f_link `pwd`/.tmux.conf ${HOME}/.tmux.conf
+
 HOST=`hostname`
 if [[ -d ./${HOST} ]]; then
     # Link to individual files in ${HOST}
