@@ -171,7 +171,7 @@ NONLOGIN=`if [[ ! -o login ]]; then echo "> "; fi`
 ROOT=$(if [[ `whoami` == 'root' ]]; then echo "%{$fg_bold[red]%} DANGERZONE %{$reset_color%}"; fi)
 # Override default prompt
 PROMPT='${ROOT}${NONLOGIN}%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
-RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} %{$fg_bold[green]%}$(command cat ~/.daily.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%}${ROOT}'
+RPROMPT='%{$fg_bold[green]%} %{$fg_bold[green]%}$(command cat ~/.daily.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%}${ROOT}'
 
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}x%{$fg[green]%}>%{$reset_color%}"
 
