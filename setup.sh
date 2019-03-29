@@ -20,8 +20,6 @@ if [[ -d ./${HOST} ]]; then
     # Link to individual files in ${HOST}
     cd ./${HOST} && for file in `find . -type f`; do \
         echo Linking ${file}; \
-        src=`pwd`/${file}
-        dest=${HOME}/${file}
-        f_link `realpath -s ${src}` `realpath -s ${dest}`; \
+        f_link `pwd`/${file} ${HOME}/${file}; \
     done
 fi
