@@ -170,3 +170,5 @@ EOF
 # Set a custom colour for the tmux host name
 tmux set-environment -g TMUX_HOSTNAME_FG "white"
 tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
+# Show the content of batstat.txt in the tmux status bar
+tmux set-environment -g TMUX_HOST_STATUS_RIGHT "#([ -s ~/.batstat.txt ] && cat ~/.batstat.txt\)"
