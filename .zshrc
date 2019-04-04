@@ -112,14 +112,28 @@ publish() {
 	scp $@ pluto:~/chicagoboss/homepage/static/files
 }
 
-# simple timer that shows a desktop notification
+# simple timer that sends three bells after a given time.
+
 timer() {
-    SECONDS=`expr $1 % 100`
-    MINUTES=`expr $1 / 100`
-    TOTAL_TIME=`expr $MINUTES \* 60 + $SECONDS`
-    echo ${MINUTES}:${SECONDS} (${TOTAL_TIME})
-    (sleep ${TOTAL_TIME} && echo "\e]9;Timer $2 went off\a") &
-    echo 'Timer started for '${TOTAL_TIME}' second(s).'
+    SECONDS=`expr    $1            % 100`
+    MINUTES=`expr \( $1 /   100 \) % 100`
+    HOURS=`  expr \( $1 / 10000 \) % 100`
+    TOTAL_TIME=`expr $HOURS \* 3600 + $MINUTES \* 60 + $SECONDS`
+    (\
+     sleep ${TOTAL_TIME}; \
+     printf "\a"; \
+     sleep 1; \
+     printf "\a"; \
+     sleep 1; \
+     printf "\a"; \
+     sleep 1; \
+     sed "1,1 d" -i="sedb" ~/.timer;\
+     ) 2>/dev/null &
+    TIMER_END=$(expr $(date +%s) + ${TOTAL_TIME})
+    touch ~/.timer
+    echo ${TIMER_END} | cat - ~/.timer | sort -n > ~/.timer
+    printf "Timer started for %02d:%02d:%02dh, or %d second(s).\n" \
+           ${HOURS} ${MINUTES} ${SECONDS} ${TOTAL_TIME}
 }
 
 # creates a new scratch directory and cds to it
