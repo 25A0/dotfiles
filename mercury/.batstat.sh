@@ -22,9 +22,19 @@ Charge=$((100*$Current/$Max))
 # echo ${Charge}
 Text=
 if [[ $Charge -le 20 ]]; then
-	Text="LOW BAT"
-# else
-# 	Text="FULL BAT"
+    Text="\#[bg=red]\#[blink,fg=red,bg=default]  LOW BAT \#[noblink,bg=red,fg=default]\#[bg=default]"
+else
+    if   [[ $Charge -le 20 ]]; then Text=""
+    elif [[ $Charge -le 30 ]]; then Text=""
+    elif [[ $Charge -le 40 ]]; then Text=""
+    elif [[ $Charge -le 50 ]]; then Text=""
+    elif [[ $Charge -le 60 ]]; then Text=""
+    elif [[ $Charge -le 70 ]]; then Text=""
+    elif [[ $Charge -le 80 ]]; then Text=""
+    elif [[ $Charge -le 90 ]]; then Text=""
+    elif [[ $Charge -le 99 ]]; then Text=""
+    else                            Text=""
+    fi
 fi
 
 printf "${Text}" > /Users/moritz/.batstat.txt

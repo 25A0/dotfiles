@@ -112,14 +112,28 @@ publish() {
 	scp $@ pluto:~/chicagoboss/homepage/static/files
 }
 
-# simple timer that shows a desktop notification
+# simple timer that sends three bells after a given time.
+
 timer() {
-    SECONDS=`expr $1 % 100`
-    MINUTES=`expr $1 / 100`
-    TOTAL_TIME=`expr $MINUTES \* 60 + $SECONDS`
-    echo ${MINUTES}:${SECONDS} (${TOTAL_TIME})
-    (sleep ${TOTAL_TIME} && echo "\e]9;Timer $2 went off\a") &
-    echo 'Timer started for '${TOTAL_TIME}' second(s).'
+    SECONDS=`expr    $1            % 100`
+    MINUTES=`expr \( $1 /   100 \) % 100`
+    HOURS=`  expr \( $1 / 10000 \) % 100`
+    TOTAL_TIME=`expr $HOURS \* 3600 + $MINUTES \* 60 + $SECONDS`
+    (\
+     sleep ${TOTAL_TIME}; \
+     printf "\a"; \
+     sleep 1; \
+     printf "\a"; \
+     sleep 1; \
+     printf "\a"; \
+     sleep 1; \
+     sed "1,1 d" -i="sedb" ~/.timer;\
+     ) 2>/dev/null &
+    TIMER_END=$(expr $(date +%s) + ${TOTAL_TIME})
+    touch ~/.timer
+    echo ${TIMER_END} | cat - ~/.timer | sort -n > ~/.timer
+    printf "Timer started for %02d:%02d:%02dh, or %d second(s).\n" \
+           ${HOURS} ${MINUTES} ${SECONDS} ${TOTAL_TIME}
 }
 
 # creates a new scratch directory and cds to it
@@ -152,10 +166,11 @@ function = { echo "$*" | tr ',' ';' | bc -l; }
 setopt no_nomatch
 # which suppresses an error when there was no match for *.
 
-# Set a default colour for the tmux host name.
-# This colour might be replaced by a host-specific colour in a host-specific rc file
+# Set defaults for host-specific tmux environment variables
+# These values might be replaced in a host-specific rc file
 tmux set-environment -g TMUX_HOSTNAME_FG "black"
 tmux set-environment -g TMUX_HOSTNAME_BG "colour13"
+tmux set-environment -g TMUX_HOST_STATUS_RIGHT ""
 
 # Aliasseses
 
@@ -170,7 +185,7 @@ NONLOGIN=`if [[ ! -o login ]]; then echo "> "; fi`
 ROOT=$(if [[ `whoami` == 'root' ]]; then echo "%{$fg_bold[red]%} DANGERZONE %{$reset_color%}"; fi)
 # Override default prompt
 PROMPT='${ROOT}${NONLOGIN}%? %{$fg_bold[red]%}%m%{$reset_color%}:%{$fg[cyan]%}%c%{$reset_color%}:%# '
-RPROMPT='%{$fg_bold[red]%}$(command cat ~/.batstat.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} %{$fg_bold[green]%}$(command cat ~/.daily.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%}${ROOT}'
+RPROMPT='%{$fg_bold[green]%} %{$fg_bold[green]%}$(command cat ~/.daily.txt 2>/dev/null || echo '')%{$reset_color%}%{$fg_bold[green]%} $(git_prompt_info)%{$reset_color%}${ROOT}'
 
 ZSH_THEME_GIT_PROMPT_DIRTY="%{$fg[green]%} %{$fg[yellow]%}x%{$fg[green]%}>%{$reset_color%}"
 

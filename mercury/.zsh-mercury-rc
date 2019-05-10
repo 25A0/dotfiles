@@ -42,32 +42,32 @@ alias wow=git
 alias very=git
 
 run-love() {
-	NAME=$(echo $(date) | md5 )
-	mkdir -p ~/.scratch/${NAME}
-	cd  ~/.scratch/${NAME}
-	cat - > main.lua
-	love  ~/.scratch/${NAME}
+    NAME=$(echo $(date) | md5 )
+    mkdir -p ~/.scratch/${NAME}
+    cd  ~/.scratch/${NAME}
+    cat - > main.lua
+    love  ~/.scratch/${NAME}
 }
 
 notifier() {
-	terminal-notifier -title Timer -message $@
+    terminal-notifier -title Timer -message $@
 }
 
 arcos() {
-	cd ~/Dropbox/Projects/arcos
-	subl arcos.sublime-project
-	DATE=`date "+%Y-%m"`
-	subl ~/Dropbox/arcos/Organisation/Arbeitszeiten/${DATE}-moritz.txt
+    cd ~/Dropbox/Projects/arcos
+    subl arcos.sublime-project
+    DATE=`date "+%Y-%m"`
+    subl ~/Dropbox/arcos/Organisation/Arbeitszeiten/${DATE}-moritz.txt
 }
 
 browse() {
-	 automator -i "$@" ~/Library/Workflows/WebPreview.workflow
+    automator -i "$@" ~/Library/Workflows/WebPreview.workflow
 }
 
 duck() {
-	 #browse "https://api.duckduckgo.com/?q=$@"
-	 query=`echo $@ | sed 's/ /%20/g'`
-	 automator -i "https://api.duckduckgo.com/?q=${query}" ~/Library/Workflows/WebPreview.workflow
+    #browse "https://api.duckduckgo.com/?q=$@"
+    query=`echo $@ | sed 's/ /%20/g'`
+    automator -i "https://api.duckduckgo.com/?q=${query}" ~/Library/Workflows/WebPreview.workflow
 }
 
 # From http://cargocultelectronics.com/2014/06/osx-command-line-file-previews/:
@@ -84,20 +84,20 @@ duck() {
 # <sequence> ST, and for all ESCs in <sequence> to be replaced with ESC ESC. It
 # only accepts ESC backslash for ST.
 function print_osc() {
-	if [[ $TERM == screen* ]] ; then
-		printf "\033Ptmux;\033\033]"
-	else
-		printf "\033]"
-	fi
+    if [[ $TERM == screen* ]] ; then
+        printf "\033Ptmux;\033\033]"
+    else
+        printf "\033]"
+    fi
 }
 
 # More of the tmux workaround described above.
 function print_st() {
-	if [[ $TERM == screen* ]] ; then
-		printf "\a\033\\"
-	else
-	        printf "\a"
-	fi
+    if [[ $TERM == screen* ]] ; then
+        printf "\a\033\\"
+    else
+        printf "\a"
+    fi
 }
 
 # print_image filename inline base64contents
@@ -105,63 +105,63 @@ function print_st() {
 #   inline: 0 or 1
 #   base64contents: Base64-encoded contents
 print_image() {
-	print_osc
-        printf '1337;File='
-	if [[ -n "$1" ]]; then
-		printf 'name='`echo -n "$1" | base64`";"
-	fi
-	if $(base64 --version 2>&1 | grep GNU > /dev/null)
-	then
-	        BASE64ARG=-d
-	else
-		BASE64ARG=-D
-        fi
-	echo -n "$3" | base64 $BASE64ARG | wc -c | awk '{printf "size=%d",$1}'
-        printf ";inline=$2"
-	printf ":"
-        echo -n "$3"
-	print_st
-        printf '\n'
+    print_osc
+    printf '1337;File='
+    if [[ -n "$1" ]]; then
+        printf 'name='`echo -n "$1" | base64`";"
+    fi
+    if $(base64 --version 2>&1 | grep GNU > /dev/null)
+    then
+        BASE64ARG=-d
+    else
+        BASE64ARG=-D
+    fi
+    echo -n "$3" | base64 $BASE64ARG | wc -c | awk '{printf "size=%d",$1}'
+    printf ";inline=$2"
+    printf ":"
+    echo -n "$3"
+    print_st
+    printf '\n'
 }
 
 inline() {
-	for file in "$@"
-	do
-		if [ -r "$file" ] ; then
-			preview_dir="/tmp"
-			thumbnail_size=600
+    for file in "$@"
+    do
+        if [ -r "$file" ] ; then
+            preview_dir="/tmp"
+            thumbnail_size=600
 
-			qlmanage -t -s $thumbnail_size -o "$preview_dir" "$file" 1>/dev/null 2>/dev/null
+            qlmanage -t -s $thumbnail_size -o "$preview_dir" "$file" 1>/dev/null 2>/dev/null
 
-			thumbnail=$preview_dir/$(basename "$file").png
+            thumbnail=$preview_dir/$(basename "$file").png
 
-			echo $file
-			print_image "$thumbnail" 1 "$(base64 < "$thumbnail")"
-		else
-			echo "preview: $file: No such file or directory"
-		fi
-	done
+            echo $file
+            print_image "$thumbnail" 1 "$(base64 < "$thumbnail")"
+        else
+            echo "preview: $file: No such file or directory"
+        fi
+    done
 }
 
 preview() {
-	for file in "$@"
-	do
-		if [ -r "$file" ] ; then
-			qlmanage -p "$file" 1>/dev/null 2>/dev/null
-		else
-		        echo "preview: $file: No such file or directory"
-		fi
-	done
+    for file in "$@"
+    do
+        if [ -r "$file" ] ; then
+            qlmanage -p "$file" 1>/dev/null 2>/dev/null
+        else
+            echo "preview: $file: No such file or directory"
+        fi
+    done
 }
 
 webloc() {
-	cat <<EOF
+    cat <<EOF
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
 <plist version="1.0">
 <dict>
-	<key>URL</key>
-	<string>$@</string>
+        <key>URL</key>
+        <string>$@</string>
 </dict>
 </plist>
 EOF
@@ -170,3 +170,5 @@ EOF
 # Set a custom colour for the tmux host name
 tmux set-environment -g TMUX_HOSTNAME_FG "white"
 tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
+# Show the content of batstat.txt in the tmux status bar
+tmux set-environment -g TMUX_HOST_STATUS_RIGHT "#([ -s ~/.batstat.txt ] && cat ~/.batstat.txt)"
