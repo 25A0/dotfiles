@@ -14,7 +14,8 @@ finder() { open -R $@ }
 # start sublime text from command line
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
 
-export EDITOR=/usr/bin/emacsclient
+# 'editor' is an executable shell script in /usr/local/sbin
+export EDITOR=editor
 
 export JUNIT_HOME="/Library/Java"
 export JAVA_FX_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home/jre/lib"
