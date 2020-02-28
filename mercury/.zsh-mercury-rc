@@ -9,7 +9,7 @@ alias epipe="/Users/moritz/lib/epipe/epipe"
 
 preview() { open -a /Applications/Preview.app $@}
 
-finder() { open -R . }
+finder() { open -R $@ }
 
 # start sublime text from command line
 alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
