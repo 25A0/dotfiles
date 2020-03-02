@@ -168,6 +168,60 @@ webloc() {
 EOF
 }
 
+# opens today's diary entry in ${EDITOR}.
+# if a date is given as yyyy-mm-dd, opens that day instead.
+today() {
+    entryroot="${HOME}/today"
+    case $1 in
+        list)
+            find -E ${entryroot} -type f -regex ".*/[0-9]{4}/[0-9]{2}/[0-9]{2}.md"
+            ;;
+        streak)
+            # Streak counts the number of continuoous entries in the diary.
+            slen=0
+            while [ -f "${entryroot}"/$(date -v "-$(expr ${slen} + 1)d" "+%Y/%m/%d.md") ]
+            do
+                slen=$(expr $slen + 1)
+            done
+            # Today's streak count may or may not include today's entry.
+            # That is: If you haven't written today's entry yet, then
+            # the streak will just the number of continuous entries, starting
+            # yesterday. If you've written today's entry, that entry is added
+            # to the total streak.
+            if [ -f "${entryroot}"/$(date "+%Y/%m/%d.md") ]
+            then
+                # add today's entry to the streak count
+                slen=$(expr $slen + 1)
+            fi
+
+            echo Current streak: ${slen} day(s)
+            ;;
+        *)
+            # the date of the entry is either the first argument, or today's date
+            entrydate=$([ $1 ] && echo $1 || date "+%Y-%m-%d");
+            # next, replace the dashes with slashes
+            entrypath=$(echo ${entrydate} | sed -e "s_-_/_g");
+            # make sure that the date is well-formed
+            echo ${entrypath} | grep --quiet -e "^\\d\\d\\d\\d/\\d\\d/\\d\\d$" && \
+                { \
+                  fname="${entryroot}/${entrypath}.md"; \
+                  ${EDITOR} "${fname}"; \
+                } || { \
+                       cat <<EOF
+usage: $0 [yyyy-mm-dd]
+
+Opens diary entries in your editor, using the EDITOR environment variable.
+
+'$0' opens today's diary entry in your editor.
+
+'$0 yyyy-mm-dd' opens the diary entry for the specified day in your editor.
+Note that month and day always have to be specified with two digits.
+EOF
+                };
+            ;;
+    esac;
+}
+
 # Set a custom colour for the tmux host name
 tmux set-environment -g TMUX_HOSTNAME_FG "white"
 tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
