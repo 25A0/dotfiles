@@ -207,6 +207,7 @@ today() {
                   fname="${entryroot}/${entrypath}.md"; \
                   if [ ! -f ${fname} ]
                   then \
+                      mkdir -p $( dirname ${fname} ); \
                       echo \# $( date -j -f "%Y-%m-%d" ${entrydate} "+%A, %B %e %Y" ) >> ${fname}; \
                   fi; \
                   ${EDITOR} "${fname}"; \
