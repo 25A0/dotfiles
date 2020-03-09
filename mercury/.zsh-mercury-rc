@@ -205,6 +205,10 @@ today() {
             echo ${entrypath} | grep --quiet -e "^\\d\\d\\d\\d/\\d\\d/\\d\\d$" && \
                 { \
                   fname="${entryroot}/${entrypath}.md"; \
+                  if [ ! -f ${fname} ]
+                  then \
+                      echo \# $( date -j -f "%Y-%m-%d" ${entrydate} "+%A, %B %e %Y" ) >> ${fname}; \
+                  fi; \
                   ${EDITOR} "${fname}"; \
                 } || { \
                        cat <<EOF
