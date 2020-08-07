@@ -53,6 +53,7 @@ plugins=(
     catimg
     z
     bgnotify
+    taskwarrior
 )
 
 source $ZSH/oh-my-zsh.sh
