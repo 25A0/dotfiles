@@ -52,7 +52,6 @@ plugins=(
     brew
     catimg
     z
-    zsh-syntax-highlighting
     bgnotify
 )
 
