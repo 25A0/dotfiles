@@ -1,0 +1,98 @@
+# Set a custom colour for the tmux host name
+tmux set-environment -g TMUX_HOSTNAME_FG "white"
+tmux set-environment -g TMUX_HOSTNAME_BG "colour4"
+# Show the content of batstat.txt in the tmux status bar
+tmux set-environment -g TMUX_HOST_STATUS_RIGHT "#([ -s ~/.batstat.txt ] && cat ~/.batstat.txt)"
+
+# OS X stuff
+
+export PATH="/usr/local/crossgcc/bin:/usr/local/sbin:/Applications/Inkscape.app/Contents/Resources/bin:/usr/local/bin:/usr/texbin:/usr/local/Cellar:/usr/local/texlive/2016/bin/x86_64-darwin:/usr/bin:/bin:/usr/sbin:/sbin:/Users/moritz/Projects/Sapling:$PATH"
+export FPATH="/Users/moritz/.zsh-functions/:$FPATH"
+autoload ytget
+
+alias sed=gsed
+alias epipe="/Users/moritz/lib/epipe/epipe"
+
+preview() { open -a /Applications/Preview.app $@}
+
+finder() { open -R $@ }
+
+# start sublime text from command line
+alias subl="/Applications/Sublime\ Text.app/Contents/SharedSupport/bin/subl"
+
+export EDITOR=emacsclient
+
+export JUNIT_HOME="/Library/Java"
+export JAVA_FX_HOME="/Library/Java/JavaVirtualMachines/jdk1.7.0_65.jdk/Contents/Home/jre/lib"
+export ANDROID_HOME="/usr/local/Caskroom/android-sdk/4333796"
+export ANDROID_NDK_HOME="/usr/local/share/android-ndk"
+export ANDROID_SDK_HOME="/usr/local/share/android-sdk"
+
+# From https://github.com/mathiasbynens/dotfiles/
+# IP addresses
+alias ip="dig +short myip.opendns.com @resolver1.opendns.com"
+alias localip="ipconfig getifaddr en1"
+
+notifier() {
+    terminal-notifier -title Timer -message $@
+}
+
+browse() {
+    automator -i "$@" ~/Library/Workflows/WebPreview.workflow
+}
+
+duck() {
+    #browse "https://api.duckduckgo.com/?q=$@"
+    query=`echo $@ | sed 's/ /%20/g'`
+    automator -i "https://api.duckduckgo.com/?q=${query}" ~/Library/Workflows/WebPreview.workflow
+}
+
+# tmux requires unrecognized OSC sequences to be wrapped with DCS tmux;
+# <sequence> ST, and for all ESCs in <sequence> to be replaced with ESC ESC. It
+# only accepts ESC backslash for ST.
+function print_osc() {
+    if [[ $TERM == screen* ]] ; then
+        printf "\033Ptmux;\033\033]"
+    else
+        printf "\033]"
+    fi
+}
+
+# More of the tmux workaround described above.
+function print_st() {
+    if [[ $TERM == screen* ]] ; then
+        printf "\a\033\\"
+    else
+        printf "\a"
+    fi
+}
+
+preview() {
+    for file in "$@"
+    do
+        if [ -r "$file" ] ; then
+            qlmanage -p "$file" 1>/dev/null 2>/dev/null
+        else
+            echo "preview: $file: No such file or directory"
+        fi
+    done
+}
+
+webloc() {
+    cat <<EOF
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE plist PUBLIC "-//Apple//DTD PLIST 1.0//EN" "http://www.apple.com/DTDs/PropertyList-1.0.dtd">
+<plist version="1.0">
+<dict>
+        <key>URL</key>
+        <string>$@</string>
+</dict>
+</plist>
+EOF
+}
+
+# The tmux status shows the elapsed time tracked in timew
+tmux set-environment -g TMUX_HOST_STATUS_RIGHT "#(timew day | grep -e \"Tracked\" | grep -o -E \"\\d+:\\d+\")"
+
+# Source zsh syntax highlighting script
+source /usr/local/share/zsh-syntax-highlighting/zsh-syntax-highlighting.zsh
