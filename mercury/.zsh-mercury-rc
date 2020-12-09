@@ -174,12 +174,12 @@ today() {
     entryroot="${HOME}/today"
     case $1 in
         list)
-            find -E ${entryroot} -type f -regex ".*/[0-9]{4}/[0-9]{2}/[0-9]{2}.md"
+            find -E ${entryroot} -type f -regex ".*/[0-9]{4}/[0-9]{2}/[0-9]{2}/entry.md"
             ;;
         streak)
             # Streak counts the number of continuoous entries in the diary.
             slen=0
-            while [ -f "${entryroot}"/$(date -v "-$(expr ${slen} + 1)d" "+%Y/%m/%d.md") ]
+            while [ -f "${entryroot}"/$(date -v "-$(expr ${slen} + 1)d" "+%Y/%m/%d/entry.md") ]
             do
                 slen=$(expr $slen + 1)
             done
@@ -188,7 +188,7 @@ today() {
             # the streak will just the number of continuous entries, starting
             # yesterday. If you've written today's entry, that entry is added
             # to the total streak.
-            if [ -f "${entryroot}"/$(date "+%Y/%m/%d.md") ]
+            if [ -f "${entryroot}"/$(date "+%Y/%m/%d/entry.md") ]
             then
                 # add today's entry to the streak count
                 slen=$(expr $slen + 1)
@@ -204,7 +204,12 @@ today() {
             # make sure that the date is well-formed
             echo ${entrypath} | grep --quiet -e "^\\d\\d\\d\\d/\\d\\d/\\d\\d$" && \
                 { \
-                  fname="${entryroot}/${entrypath}.md"; \
+                  fname="${entryroot}/${entrypath}/entry.md"; \
+                  if [ ! -f ${fname} ]
+                  then \
+                      mkdir -p $( dirname ${fname} ); \
+                      echo \# $( date -j -f "%Y-%m-%d" ${entrydate} "+%A, %B %e %Y" ) >> ${fname}; \
+                  fi; \
                   ${EDITOR} "${fname}"; \
                 } || { \
                        cat <<EOF

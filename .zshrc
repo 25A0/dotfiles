@@ -145,7 +145,7 @@ timer() {
 
 # creates a new scratch directory and cds to it
 scratch() {
-	NAME=$(echo $(date) | md5 )
+	NAME=$(echo $(date) | md5sum )
 	mkdir -p ~/.scratch/${NAME}
 	cd ~/.scratch/${NAME}	
 }
